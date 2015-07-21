@@ -1,0 +1,5 @@
+curl -H "Content-Type: application/json" -X POST -d '{"singer":"Melody Gardo","title":"No sunshine"}' -v http://localhost:8080/rest.tutorial/jpa/tracks
+
+curl http://localhost:8080/rest.tutorial/jpa/tracks
+
+curl http://localhost:8080/rest.tutorial/jpa/tracks/3
