@@ -80,18 +80,33 @@
 				<version>2.6</version>
 				<configuration>
 					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-	                <webResources>
-	                    <resource>
-	                        <filtering>true</filtering>
-	                        <directory>src/main/webapp</directory>
-	                        <includes>
-	                            <include>META-INF/*</include>
-	                        </includes>
-	                        <targetPath>WEB-INF/classes</targetPath>
-	                    </resource>
-	                </webResources>
-	                <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
- 				</configuration>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- Copy what's under java-templates to generated-sources with filtering. The generated-sources -->
+				<!-- is later picked up by the compiler and added to the war. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>copy-templates</id>
+						<!-- here the phase you need -->
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/java-templates</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
