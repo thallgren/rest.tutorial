@@ -1,34 +1,27 @@
-package se.tada.tutorial.cdi.rest;
+package se.tada.tutorial.hello;
 
-import javax.annotation.ManagedBean;
-import javax.annotation.Resource;
-import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-@ManagedBean
-@ApplicationScoped
+@Singleton
 @Path("/singleton")
-public class Singleton {
+public class SingletonBean {
 
-	@Context
+	@Inject
 	UriInfo uriInfo;
 
-	@Context
+	@Inject
 	Request request;
 
-	/**
-	 * This resource is defined in web.xml
-	 */
-	@Resource(name = "injectedResource")
-	int counter = 0;
+	int counter = 42;
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)

@@ -12,29 +12,23 @@
 	</properties>
 
 	<dependencies>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-       <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.2</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.2</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.2</version>
-            <scope>provided</scope>
-        </dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
@@ -46,25 +40,14 @@
 			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.glassfish.jersey.ext.cdi</groupId>
-			<artifactId>jersey-cdi1x-servlet</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.glassfish.hk2.external</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>2.4.0-b27</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.weld.servlet</groupId>
-			<artifactId>weld-servlet</artifactId>
-			<version>2.2.14.Final</version>
-		</dependency>
-		<dependency>
-		  <groupId>org.eclipse.persistence</groupId>
-		  <artifactId>org.eclipse.persistence.jpa</artifactId>
-		  <version>2.5.2</version>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<version>2.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.derby</groupId>
@@ -72,22 +55,10 @@
 			<version>10.11.1.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.glassfish.jersey.test-framework</groupId>
-			<artifactId>jersey-test-framework-core</artifactId>
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
 			<version>${jersey.version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.glassfish.jersey.test-framework.providers</groupId>
-		    <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
-		    <version>${jersey.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-		  <groupId>org.glassfish.jersey.ext.cdi</groupId>
-		  <artifactId>jersey-weld2-se</artifactId>
-		  <version>${jersey.version}</version>
-		  <scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>

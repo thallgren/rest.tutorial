@@ -1,13 +1,8 @@
-package se.tada.tutorial.cdi.jpa.rest;
+package se.tada.tutorial.jpa.rest;
 
 import java.net.URI;
 import java.util.List;
-
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,12 +14,8 @@ import javax.ws.rs.core.Response;
 import se.tada.tutorial.jpa.model.Track;
 
 @ManagedBean
-@RequestScoped
 @Path("/jpa")
-public class TrackBean {
-	@Inject
-	private EntityManager em;
-
+public class TrackBean extends AbstractJPABean {
 	@GET
 	@Path("/tracks")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -43,13 +34,13 @@ public class TrackBean {
 	@Path("/tracks")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addTrack(Track newTrack) {
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
-		Track track = new Track();
-		track.setTitle(newTrack.getTitle());
-		track.setSinger(newTrack.getSinger());
-		em.persist(track);
-		transaction.commit();
-		return Response.created(URI.create("jpa/tracks/" + track.getId())).build();
+		Track created = transaction(em -> {
+			Track track = new Track();
+			track.setTitle(newTrack.getTitle());
+			track.setSinger(newTrack.getSinger());
+			em.persist(track);
+			return track;
+		});
+		return Response.created(URI.create("jpa/tracks/" + created.getId())).build();
 	}
 }
