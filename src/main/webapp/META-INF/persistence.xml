@@ -7,7 +7,7 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:derby:/Users/thhal/databases/tutorial;create=true" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby:${user.home}/databases/tutorial;create=true" />
 			<property name="javax.persistence.jdbc.user" value="tutorial" />
 			<property name="javax.persistence.jdbc.password" value="tutorial" />
 
