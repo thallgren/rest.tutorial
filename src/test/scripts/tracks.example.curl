@@ -3,3 +3,5 @@ curl -H "Content-Type: application/json" -X POST -d '{"singer":"Melody Gardo","t
 curl http://localhost:8080/rest.tutorial/jpa/tracks
 
 curl http://localhost:8080/rest.tutorial/jpa/tracks/3
+
+curl --request PUT -H 'content-type: text/plain' --data 15 http://localhost:8080/rest.tutorial/singleton/counter

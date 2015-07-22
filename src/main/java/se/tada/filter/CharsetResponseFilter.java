@@ -13,12 +13,12 @@ public class CharsetResponseFilter implements ContainerResponseFilter {
 	@Override
 	public void filter(ContainerRequestContext request, ContainerResponseContext response) {
 		MediaType type = response.getMediaType();
-		if(type != null) {
-			String contentType = type.toString();
-			if(!contentType.contains("charset")) {
-				contentType = contentType + ";charset=utf-8";
-				response.getHeaders().putSingle("Content-Type", contentType);
-			}
-		}
+		//		if(type != null) {
+		//			String contentType = type.toString();
+		//			if(!contentType.contains("charset")) {
+		//				contentType = contentType + ";charset=utf-8";
+		//				response.getHeaders().putSingle("Content-Type", contentType);
+		//			}
+		//		}
 	}
 }
