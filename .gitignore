@@ -1,2 +1,5 @@
-/derby.log
-/target/
+/node_modules
+/.tmp
+/.sass-cache
+/target
+/*.log

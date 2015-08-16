@@ -3,11 +3,13 @@ package se.tada.tutorial.jpa.rest;
 import java.util.function.Function;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 public abstract class AbstractJPABean {
 	@Inject
+	@Named("tutorial")
 	protected EntityManager em;
 
 	public <T> T transaction(Function<EntityManager, T> ts) {

@@ -55,6 +55,11 @@
 			<version>10.11.1.1</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
 			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
 			<version>${jersey.version}</version>
@@ -83,8 +88,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<!-- Copy what's under java-templates to generated-sources with filtering. The generated-sources -->
-				<!-- is later picked up by the compiler and added to the war. -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.7</version>
@@ -92,16 +95,41 @@
 					<execution>
 						<id>copy-templates</id>
 						<!-- here the phase you need -->
-						<phase>generate-sources</phase>
+						<phase>validate</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
+							<outputDirectory>${project.build.directory}</outputDirectory>
 							<resources>
 								<resource>
 									<directory>src/main/java-templates</directory>
 									<filtering>true</filtering>
+									<targetPath>generated-sources/java</targetPath>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-templates</id>
+						<!-- here the phase you need -->
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+							<resources>
+								<!-- Things like META-INF/presistence.xml must be copied -->
+								<!-- separately to the target/classes since the javac compiler -->
+								<!-- doesn't do that for us -->
+								<resource>
+									<directory>src/main/java-templates</directory>
+									<filtering>true</filtering>
+									<excludes>
+										<exclude>**/*.java</exclude>
+									</excludes>
+									<targetPath>classes</targetPath>
 								</resource>
 							</resources>
 						</configuration>
@@ -109,5 +137,88 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>exec-maven-plugin</artifactId>
+										<versionRange>[1.4.0,)</versionRange>
+										<goals>
+											<goal>exec</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>grunt</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.4.0</version>
+						<executions>
+							<execution>
+								<id>exec-npm-install</id>
+								<phase>generate-sources</phase>
+								<configuration>
+									<executable>npm</executable>
+									<arguments>
+										<argument>install</argument>
+									</arguments>
+								</configuration>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>exec-bower-install</id>
+								<phase>generate-sources</phase>
+								<configuration>
+									<executable>bower</executable>
+									<arguments>
+										<argument>install</argument>
+									</arguments>
+								</configuration>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>exec-grunt</id>
+								<phase>process-resources</phase>
+								<configuration>
+									<executable>grunt</executable>
+								</configuration>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

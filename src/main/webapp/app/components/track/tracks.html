@@ -1,0 +1,15 @@
+<a ui-sref="newTrack" class="btn-primary btn-lg nodecoration">Add New Track</a>
+
+<table class="table trackstable">
+  <tr>
+    <td><h3>All Tracks</h3></td>
+    <td></td>
+  </tr>
+  <tr ng-repeat="track in tracks">
+    <td>{{track.title}}</td>
+    <td>
+      <a class="btn btn-primary" ui-sref="viewTrack({id:track.id})">View</a>
+      <a class="btn btn-danger"  ng-click="deleteTrack(track)">Delete</a>
+    </td>
+  </tr>
+</table>

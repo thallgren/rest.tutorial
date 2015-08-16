@@ -5,17 +5,29 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import org.glassfish.hk2.api.Factory;
+import org.glassfish.hk2.api.ServiceHandle;
+import org.glassfish.hk2.api.ServiceLocator;
 
 /**
  * Class that provides request scoped CDI bindings
  */
 public class EntityManagerProvider implements Factory<EntityManager> {
+	private final String persistenceUnit;
+
+	private ServiceHandle<EntityManagerFactory> emFactoryHandle;
+
+	public EntityManagerProvider(String persistenceUnit) {
+		this.persistenceUnit = persistenceUnit;
+	}
+
 	@Inject
-	private EntityManagerFactory emFactory;
+	public void injectEntityManagerFactory(ServiceLocator serviceLocator) {
+		emFactoryHandle = serviceLocator.getServiceHandle(EntityManagerFactory.class, persistenceUnit);
+	}
 
 	@Override
 	public EntityManager provide() {
-		return emFactory.createEntityManager();
+		return emFactoryHandle.getService().createEntityManager();
 	}
 
 	@Override
