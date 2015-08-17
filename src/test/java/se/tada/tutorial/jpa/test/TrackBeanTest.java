@@ -20,7 +20,7 @@ public class TrackBeanTest extends AbstractJPATest {
 
 	@Test
 	public void testAll() {
-		List<Track> tracks = target("jpa/tracks").request().get(LIST_OF_TRACK);
+		List<Track> tracks = target("tracks").request().get(LIST_OF_TRACK);
 		assertFalse(tracks.isEmpty());
 		Track first = tracks.get(0);
 		assertFalse(first.getTitle().isEmpty());
@@ -29,7 +29,7 @@ public class TrackBeanTest extends AbstractJPATest {
 
 	@Test
 	public void testById() {
-		Track track = target("jpa/tracks/1").request().get(Track.class);
+		Track track = target("tracks/1").request().get(Track.class);
 		assertNotNull(track);
 		assertFalse(track.getTitle().isEmpty());
 		assertFalse(track.getSinger().isEmpty());
@@ -41,7 +41,7 @@ public class TrackBeanTest extends AbstractJPATest {
 		track.setSinger("Melody Gardot");
 		track.setTitle("Ain't no sunshine when you're gone");
 
-		Response response = target("jpa/tracks").request().post(Entity.<Track> entity(track, MediaType.APPLICATION_JSON));
+		Response response = target("tracks").request().post(Entity.<Track> entity(track, MediaType.APPLICATION_JSON));
 		assertEquals(201, response.getStatus());
 		URI location = response.getLocation();
 		assertNotNull(location);
