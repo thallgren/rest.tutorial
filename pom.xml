@@ -111,7 +111,7 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>copy-templates</id>
+						<id>copy-templates-2</id>
 						<!-- here the phase you need -->
 						<phase>compile</phase>
 						<goals>
