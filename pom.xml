@@ -94,8 +94,7 @@
 				<executions>
 					<execution>
 						<id>copy-templates</id>
-						<!-- here the phase you need -->
-						<phase>validate</phase>
+						<phase>clean</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
@@ -112,7 +111,6 @@
 					</execution>
 					<execution>
 						<id>copy-templates-2</id>
-						<!-- here the phase you need -->
 						<phase>compile</phase>
 						<goals>
 							<goal>copy-resources</goal>
